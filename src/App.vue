@@ -69,7 +69,7 @@ a {
 .v-btn {
 	text-transform: unset !important;
 	.text-white {
-		color: #ffff;
+		color: #ffff !important;
 	}
 }
 </style>

@@ -13,8 +13,39 @@ const helloWorld = () => {
 
 <template>
 	<v-container>
-		<v-row class="text-center">
+		<v-row>
 			<v-col cols="12">
+				<a href="https://vuetifyjs.com/en/components/buttons/#usage" target="_blank"> Vuetify Buttons </a>
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12">
+				<v-btn class="ma-1"> default </v-btn>
+				<v-btn class="ma-1" variant="outlined"> default outlined </v-btn>
+				<v-btn class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
+				<v-btn class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
+			</v-col>
+			<v-col cols="12">
+				<v-btn color="primary" class="ma-1"> primary default </v-btn>
+				<v-btn color="primary" class="ma-1" variant="outlined"> primary outlined </v-btn>
+				<v-btn color="primary" class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
+				<v-btn color="primary" class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
+			</v-col>
+			<v-col cols="12">
+				<v-btn color="warning" class="ma-1"> warning </v-btn>
+				<v-btn color="warning" class="ma-1" variant="outlined"> warning outlined </v-btn>
+				<v-btn color="warning" class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
+				<v-btn color="warning" class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
+			</v-col>
+			<v-col cols="12">
+				<v-btn color="info" class="ma-1"> info </v-btn>
+				<v-btn color="info" class="ma-1" variant="outlined"> info outlined </v-btn>
+				<v-btn color="info" class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
+				<v-btn color="info" class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12" class="ma-1">
 				<v-btn
 					prepend-icon="mdi-check-circle"
 					color="primary-gradient"
@@ -23,17 +54,15 @@ const helloWorld = () => {
 					@click="helloWorld"
 				>
 					<template v-slot:prepend> <v-icon>mdi-heart-settings-outline</v-icon> </template>
-					그냥 버튼
+					primary-gradient
 					<template v-slot:append> <v-icon>mdi-exit-run</v-icon> </template>
 				</v-btn>
-				<v-btn variant="outlined" color="primary-2" class="ma-2"> 아웃라인 버튼 </v-btn>
 			</v-col>
 			<v-col cols="12">
-				<v-btn icon="mdi-open-in-new" size="large" @click="onClickBtn"></v-btn>
-			</v-col>
-			<v-col cols="12">
-				<v-icon dark>mdi-open-in-new</v-icon>
-				<v-icon dark>mdi-alpha-s-circle</v-icon>
+				<v-btn icon="mdi-open-in-new" class="ma-1" size="large" @click="onClickBtn"></v-btn>
+				<v-btn icon="mdi-open-in-new" color="primary" class="ma-1" size="large" @click="onClickBtn"></v-btn>
+				<v-btn icon="mdi-open-in-new" color="warning" class="ma-1" size="large" @click="onClickBtn"></v-btn>
+				<v-btn icon="mdi-open-in-new" color="info" class="ma-1" size="large" @click="onClickBtn"></v-btn>
 			</v-col>
 		</v-row>
 	</v-container>
