@@ -57,6 +57,21 @@ const items = ref([
 
 <!-- TODO scoped 아닌 공통스타일. 규모가 커지면 파일을 따로 빼서 import를 하면 어떨지... -->
 <style lang="scss">
+html {
+	/* 스크롤바 설정*/
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	/* 스크롤바 막대 설정*/
+	&::-webkit-scrollbar-thumb {
+		background: #c5c5c3;
+		border-radius: 25px;
+	}
+	/* 스크롤바 뒷 배경 설정*/
+	&::-webkit-scrollbar-track {
+		background-color: #f1f0ed;
+	}
+}
 // 기본설정
 * {
 	margin: 0px;
