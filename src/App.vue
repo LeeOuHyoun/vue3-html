@@ -70,6 +70,9 @@ ol {
 
 a {
 	text-decoration: none;
+	&:hover {
+		opacity: 0.7;
+	}
 }
 
 .v-app-bar.v-toolbar,
