@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
-// const btnVal = ref(0)
+import { ref, inject } from 'vue'
+const $dayjs = inject('$dayjs')
+const currentDate = ref($dayjs().format('YYYY'))
 const items = ref([
 	{ title: 'Button', color: '#fff', 'active-color': 'red', disabled: false, href: 'button-sample' },
 	{
@@ -39,6 +40,7 @@ const items = ref([
 				<router-view />
 			</v-main>
 		</v-layout>
+		<v-footer border> Copyright © 2022-{{ currentDate }} Constant Company All rights reserved. </v-footer>
 	</v-app>
 </template>
 
