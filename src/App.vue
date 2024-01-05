@@ -1,7 +1,8 @@
 <script setup>
-import { ref, inject } from 'vue'
+import { ref, inject, computed } from 'vue'
 const $dayjs = inject('$dayjs')
 const currentDate = ref($dayjs().format('YYYY'))
+const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
 const items = ref([
 	{ title: 'Button', color: '#fff', 'active-color': 'red', disabled: false, href: 'button-sample' },
 	{
@@ -21,6 +22,11 @@ const items = ref([
 		<v-layout class="rounded rounded-md">
 			<v-app-bar color="primary-gradient">
 				<!-- 상단 헤더 -->
+				<template v-slot:prepend>
+					<router-link to="/">
+						<v-img :src="logoSrc" width="50" height="50"></v-img>
+					</router-link>
+				</template>
 				<template v-slot:append>
 					<v-breadcrumbs :items="items" divider="|">
 						<template v-slot:prepend>
@@ -30,7 +36,7 @@ const items = ref([
 				</template>
 			</v-app-bar>
 
-			<v-navigation-drawer>
+			<v-navigation-drawer order="1">
 				<v-list>
 					<v-list-item title="Navigation drawer"></v-list-item>
 				</v-list>
@@ -39,8 +45,13 @@ const items = ref([
 			<v-main class="d-flex align-center justify-center" style="min-height: 300px">
 				<router-view />
 			</v-main>
+
+			<v-footer border app>
+				<div class="px-4 py-2 text-center w-100">
+					Copyright © 2022-{{ currentDate }} Constant Company All rights reserved.
+				</div>
+			</v-footer>
 		</v-layout>
-		<v-footer border> Copyright © 2022-{{ currentDate }} Constant Company All rights reserved. </v-footer>
 	</v-app>
 </template>
 
