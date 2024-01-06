@@ -5,7 +5,7 @@ const currentDate = ref($dayjs().format('YYYY'))
 const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
 const headerMenus = ref([
 	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
-	{ title: 'Link 1', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-1' },
+	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
 	{ title: 'Link 2', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-2' },
 ])
 </script>
