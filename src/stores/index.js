@@ -13,4 +13,7 @@ export const useStore = defineStore({
 			this.$patch({ storeTestData: payload })
 		},
 	},
+	persist: {
+		storage: sessionStorage,
+	},
 })

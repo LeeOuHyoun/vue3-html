@@ -7,11 +7,15 @@ import axios from 'axios'
 import '@/styles/style.scss'
 import dayjs from 'dayjs'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 loadFonts()
 
 const app = createApp(App)
+
 const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
 const http = axios.create({
 	// TODO 기본설정
 	// baseURL: 'https://some-domain.com/api/',
@@ -29,7 +33,6 @@ http.interceptors.request.use(
 		return Promise.reject(error)
 	},
 )
-
 // 응답 인터셉터 추가하기
 http.interceptors.response.use(
 	function (response) {
@@ -43,6 +46,7 @@ http.interceptors.response.use(
 		return Promise.reject(error)
 	},
 )
+
 app.provide('$http', http)
 app.provide('$dayjs', dayjs)
 
