@@ -8,14 +8,14 @@ const { getStoreTest } = storeToRefs(store)
 const testText = ref(getStoreTest.value)
 const setStoreTest = () => {
 	if (isEmpty(trim(testText.value)) || size(trim(testText.value)) > 20) {
-		alert('잘 좀 입력 해 주세요!!!')
+		alert('잘 좀 입력해 주세요!!!')
 		testText.value = getStoreTest.value
 	} else {
-		store.setStoreTest(testText.value)
+		store.setStoreTest(trim(testText.value))
 	}
 }
 const rules = {
-	required: value => !isEmpty(trim(value)) || '뭐 좀 입력 해 주세요!!!(※공백말고)',
+	required: value => !isEmpty(trim(value)) || '뭐 좀 입력해 주세요!!!(※공백말고)',
 	maxErrors: value => 20 > size(trim(value)) || '그건 좀 긴거 같으네요!!!',
 }
 </script>
@@ -35,18 +35,22 @@ const rules = {
 			<v-card-item>
 				<div class="ma-2">{{ getStoreTest }}</div>
 				<v-divider length="200" class="border-opacity-100 mb-3"></v-divider>
-				<v-text-field
-					v-model="testText"
-					append-icon="mdi-send"
-					clear-icon="mdi-close-circle"
-					clearable
-					label="StoreTest"
-					type="text"
-					hint="스토어(SessionStorage)에 데이터를 설정 합니다."
-					max-errors="5"
-					:rules="[rules.required, rules.maxErrors]"
-					@click:append="setStoreTest"
-				/>
+				<v-row>
+					<v-col cols="5">
+						<v-text-field
+							v-model="testText"
+							append-icon="mdi-send"
+							clear-icon="mdi-close-circle"
+							clearable
+							label="StoreTest"
+							type="text"
+							hint="스토어(SessionStorage)에 데이터를 설정 합니다."
+							max-errors="20"
+							:rules="[rules.required, rules.maxErrors]"
+							@click:append="setStoreTest"
+						/>
+					</v-col>
+				</v-row>
 			</v-card-item>
 		</v-card>
 	</v-container>
