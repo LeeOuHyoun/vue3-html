@@ -2,11 +2,12 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStore } from '@/stores'
-import { isEmpty, trim, size } from 'lodash-es'
+import { isEmpty, trim, size, isEqual } from 'lodash-es'
 const store = useStore()
 const { getStoreTest } = storeToRefs(store)
 const testText = ref(getStoreTest.value)
 const setStoreTest = () => {
+	if (isEqual(testText.value, getStoreTest.value)) return
 	if (isEmpty(trim(testText.value)) || size(trim(testText.value)) > 20) {
 		alert('잘 좀 입력해 주세요!!!')
 		testText.value = getStoreTest.value
@@ -16,7 +17,7 @@ const setStoreTest = () => {
 }
 const rules = {
 	required: value => !isEmpty(trim(value)) || '뭐 좀 입력해 주세요!!!(※공백말고)',
-	maxErrors: value => 20 > size(trim(value)) || '그건 좀 긴거 같으네요!!!',
+	maxErrors: value => 20 >= size(trim(value)) || '그건 좀 긴거 같으네요!!!',
 }
 </script>
 
