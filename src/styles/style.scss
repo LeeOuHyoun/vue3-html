@@ -1,0 +1,54 @@
+// 기본설정
+* {
+	margin: 0px;
+	padding: 0px;
+
+	/* 스크롤바 설정*/
+	&::-webkit-scrollbar {
+		width: 10px;
+	}
+	/* 스크롤바 막대 설정*/
+	&::-webkit-scrollbar-thumb {
+		background: #c5c5c3;
+		border-radius: 25px;
+	}
+	/* 스크롤바 뒷 배경 설정*/
+	&::-webkit-scrollbar-track {
+		background-color: #f1f0ed;
+	}
+}
+
+ul,
+ol {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+	&:hover {
+		opacity: 0.7;
+	}
+}
+
+header,
+footer,
+nav {
+	&.sub-s {
+		position: fixed !important;
+	}
+}
+
+// Vuetify 기본
+.v-app-bar.v-toolbar,
+.v-btn.v-theme--light {
+	&.bg-primary-gradient.v-theme--light {
+		background: linear-gradient(45deg, #fde2e2, #f56c6c);
+	}
+}
+// 왜 기본 버튼설정이 자동 대문자인지 모르겠군요.
+.v-btn {
+	text-transform: unset !important;
+	.text-white {
+		color: #ffff !important;
+	}
+}

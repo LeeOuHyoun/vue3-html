@@ -4,10 +4,12 @@ import { inject } from 'vue'
 
 const $http = inject('$http')
 const onClickBtn = () => {
+	// FIXME axios오브젝트 있나 확인만
 	console.log($http.get)
 }
 const helloWorld = () => {
-	alert('Hello World!')
+	const yesOrNo = confirm('Do you know Hello World?')
+	alert(yesOrNo ? 'Yes. I know' : `No I don't know`)
 }
 </script>
 
@@ -21,6 +23,7 @@ const helloWorld = () => {
 						Vuetify Buttons API
 					</strong>
 				</a>
+				<!-- 아래 라인 -->
 				<v-divider></v-divider>
 			</template>
 			<v-card-item>
@@ -65,28 +68,10 @@ const helloWorld = () => {
 						</v-btn>
 					</v-col>
 					<v-col cols="12">
-						<v-btn icon="mdi-open-in-new" class="ma-1" size="large" @click="onClickBtn"></v-btn>
-						<v-btn
-							icon="mdi-open-in-new"
-							color="primary"
-							class="ma-1"
-							size="large"
-							@click="onClickBtn"
-						></v-btn>
-						<v-btn
-							icon="mdi-open-in-new"
-							color="warning"
-							class="ma-1"
-							size="large"
-							@click="onClickBtn"
-						></v-btn>
-						<v-btn
-							icon="mdi-open-in-new"
-							color="info"
-							class="ma-1"
-							size="large"
-							@click="onClickBtn"
-						></v-btn>
+						<v-btn icon="mdi-open-in-new" class="ma-1" size="large" @click="onClickBtn" />
+						<v-btn icon="mdi-open-in-new" color="primary" class="ma-1" size="large" @click="onClickBtn" />
+						<v-btn icon="mdi-open-in-new" color="warning" class="ma-1" size="large" @click="onClickBtn" />
+						<v-btn icon="mdi-open-in-new" color="info" class="ma-1" size="large" @click="onClickBtn" />
 					</v-col>
 				</v-row>
 			</v-card-item>

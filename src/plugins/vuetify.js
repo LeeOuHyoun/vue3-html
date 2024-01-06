@@ -18,6 +18,7 @@ export default createVuetify(
 						info: '#909399',
 					},
 				},
+				// XXX TODO dark도 추가 하면 좋을것 같은데...
 			},
 		},
 	},
