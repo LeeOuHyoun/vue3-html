@@ -6,10 +6,12 @@ import router from './router'
 import axios from 'axios'
 import '@/styles/style.scss'
 import dayjs from 'dayjs'
+import { createPinia } from 'pinia'
 
 loadFonts()
 
 const app = createApp(App)
+const pinia = createPinia()
 const http = axios.create({
 	// TODO 기본설정
 	// baseURL: 'https://some-domain.com/api/',
@@ -44,4 +46,4 @@ http.interceptors.response.use(
 app.provide('$http', http)
 app.provide('$dayjs', dayjs)
 
-app.use(vuetify).use(router).mount('#app')
+app.use(vuetify).use(router).use(pinia).mount('#app')

@@ -17,7 +17,7 @@ const headerMenus = ref([
 			<v-app-bar color="primary-gradient" class="sub-s">
 				<template v-slot:prepend>
 					<router-link to="/">
-						<v-img :src="logoSrc" width="50" height="50"></v-img>
+						<v-img :src="logoSrc" width="50" height="50" alt="Go to Home" />
 					</router-link>
 				</template>
 				<template v-slot:append>
