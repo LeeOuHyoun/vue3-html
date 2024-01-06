@@ -45,7 +45,6 @@ const rules = {
 							label="StoreTest"
 							type="text"
 							hint="스토어(SessionStorage)에 데이터를 설정 합니다."
-							max-errors="20"
 							:rules="[rules.required, rules.maxErrors]"
 							@click:append="setStoreTest"
 						/>
