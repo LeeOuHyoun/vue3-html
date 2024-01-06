@@ -3,10 +3,10 @@ import { ref, inject, computed } from 'vue'
 const $dayjs = inject('$dayjs')
 const currentDate = ref($dayjs().format('YYYY'))
 const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
-const headerMenus = computed(() => [
-	{ title: 'Button', color: '#fff', disabled: false, to: 'button-sample' },
-	{ title: 'Link 1', color: '#fff', disabled: false, to: 'breadcrumbs_link_1' },
-	{ title: 'Link 2', color: '#fff', disabled: false, to: 'breadcrumbs_link_2' },
+const headerMenus = ref([
+	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
+	{ title: 'Link 1', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-1' },
+	{ title: 'Link 2', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-2' },
 ])
 </script>
 
@@ -23,7 +23,7 @@ const headerMenus = computed(() => [
 				<template v-slot:append>
 					<v-breadcrumbs :items="headerMenus" divider="|">
 						<template v-slot:prepend>
-							<v-icon size="small" icon="$vuetify"></v-icon>
+							<v-icon size="small" icon="$vuetify" color="#fde0e0"></v-icon>
 						</template>
 					</v-breadcrumbs>
 				</template>
@@ -62,4 +62,8 @@ const headerMenus = computed(() => [
 	</v-app>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sub-s ::v-deep .activeMnu {
+	font-weight: bold;
+}
+</style>
