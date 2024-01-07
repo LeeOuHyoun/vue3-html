@@ -1,6 +1,8 @@
 <script setup>
 import { ref, inject } from 'vue'
 import ComHeader from '@/components/ComHeader.vue'
+import ComLeftNavigation from '@/components/ComLeftNavigation.vue'
+
 const $dayjs = inject('$dayjs')
 const currentDate = ref($dayjs().format('YYYY'))
 </script>
@@ -10,25 +12,8 @@ const currentDate = ref($dayjs().format('YYYY'))
 		<v-layout class="rounded rounded-md">
 			<!-- 상단 헤더 -->
 			<ComHeader />
-
-			<!-- #region 완쪽 네비게이션 -->
-			<v-navigation-drawer order="1" class="sub-s">
-				<v-list>
-					<v-list-item title="Kenya"></v-list-item>
-					<v-list-item title="Singapore"></v-list-item>
-					<v-list-item title="Spain"></v-list-item>
-					<v-list-item title="Syria"></v-list-item>
-					<v-list-item title="Japan"></v-list-item>
-					<v-list-item title="Zambia"></v-list-item>
-					<v-list-item title="Tanzania"></v-list-item>
-					<v-list-item title="Bulgaria"></v-list-item>
-					<v-list-item title="Iraq"></v-list-item>
-					<v-list-item title="Switzerland"></v-list-item>
-					<v-list-item title="Cyprus"></v-list-item>
-					<v-list-item title="St. Helena"></v-list-item>
-				</v-list>
-			</v-navigation-drawer>
-			<!-- #endregion -->
+			<!-- 완쪽 네비게이션 -->
+			<ComLeftNavigation />
 
 			<v-main class="d-flex align-center justify-center" style="min-height: 300px">
 				<router-view />

@@ -46,6 +46,7 @@ const onSearch = debounce(() => {
 				append-inner-icon="mdi-magnify"
 				single-line
 				hide-details
+				clearable
 				@click:append-inner="onSearch"
 				@keydown.enter="onSearch"
 			/>
