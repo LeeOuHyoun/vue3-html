@@ -1,6 +1,10 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { map } from 'lodash-es'
+import { useStore } from '@/stores'
+import { storeToRefs } from 'pinia'
+const store = useStore()
+const { wasDarkMode } = storeToRefs(store)
 const vuetifyDefaultIcons = {
 	$calendar: 'mdi-calendar',
 	$cancel: 'mdi-close-circle',
@@ -47,6 +51,7 @@ const headers = ref([
 ])
 const virtualBoats = ref(map(vuetifyDefaultIcons, (name, alias) => ({ alias, name })))
 const search = ref('')
+const linkColor = computed(() => (wasDarkMode.value ? 'text-blue-lighten-4' : 'text-blue-darken-4'))
 </script>
 
 <template>
@@ -72,7 +77,8 @@ const search = ref('')
 							max-height="30"
 							target="_blank"
 							append-icon="mdi-open-in-new"
-							class="text-blue-darken-4 px-1"
+							class="px-1"
+							:class="linkColor"
 						>
 							Material Design Icons
 						</v-btn>
