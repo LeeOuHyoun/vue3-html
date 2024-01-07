@@ -41,8 +41,13 @@ nav {
 // Vuetify 기본
 .v-app-bar.v-toolbar,
 .v-btn.v-theme--light {
-	&.bg-primary-gradient.v-theme--light {
-		background: linear-gradient(45deg, #fde2e2, #f56c6c);
+	&.bg-primary-gradient {
+		&.v-theme--light {
+			background: linear-gradient(45deg, #fde2e2, #f56c6c);
+		}
+		&.v-theme--dark {
+			background: linear-gradient(45deg, #424242, #121212);
+		}
 	}
 }
 // 왜 기본 버튼설정이 자동 대문자인지 모르겠군요.
