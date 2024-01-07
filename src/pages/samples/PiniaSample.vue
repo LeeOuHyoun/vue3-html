@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useStore } from '@/stores'
 import { isEmpty, trim, size, isEqual } from 'lodash-es'
@@ -19,6 +19,10 @@ const rules = {
 	required: value => !isEmpty(trim(value)) || '뭐 좀 입력해 주세요!!!(※공백말고)',
 	maxErrors: value => 20 >= size(trim(value)) || '그건 좀 긴거 같으네요!!!',
 }
+
+watch(getStoreTest, val => {
+	testText.value = val
+})
 </script>
 
 <template>

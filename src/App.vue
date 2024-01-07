@@ -1,34 +1,15 @@
 <script setup>
-import { ref, inject, computed } from 'vue'
+import { ref, inject } from 'vue'
+import ComHeader from '@/components/ComHeader.vue'
 const $dayjs = inject('$dayjs')
 const currentDate = ref($dayjs().format('YYYY'))
-const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
-const headerMenus = ref([
-	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
-	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
-	{ title: 'Link 2', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-2' },
-])
 </script>
 
 <template>
 	<v-app>
 		<v-layout class="rounded rounded-md">
-			<!-- #region 상단 헤더 -->
-			<v-app-bar color="primary-gradient" class="sub-s">
-				<template v-slot:prepend>
-					<router-link to="/">
-						<v-img :src="logoSrc" width="50" height="50" alt="Go to Home" />
-					</router-link>
-				</template>
-				<template v-slot:append>
-					<v-breadcrumbs :items="headerMenus" divider="|">
-						<template v-slot:prepend>
-							<v-icon size="small" icon="$vuetify" color="#fde0e0"></v-icon>
-						</template>
-					</v-breadcrumbs>
-				</template>
-			</v-app-bar>
-			<!-- #endregion -->
+			<!-- 상단 헤더 -->
+			<ComHeader />
 
 			<!-- #region 완쪽 네비게이션 -->
 			<v-navigation-drawer order="1" class="sub-s">
