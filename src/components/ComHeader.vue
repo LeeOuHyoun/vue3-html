@@ -1,11 +1,14 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, watchEffect } from 'vue'
 import { delay, isEqual, isEmpty, trim, debounce, size } from 'lodash-es'
 import { useStore } from '@/stores'
+import { useTheme } from 'vuetify'
 import { storeToRefs } from 'pinia'
 const store = useStore()
-const { getStoreTest } = storeToRefs(store)
+const theme = useTheme()
+const { getStoreTest, wasDarkMode } = storeToRefs(store)
 const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
+const isDarkMode = ref(wasDarkMode.value)
 const headerMenus = ref([
 	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
 	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
@@ -16,6 +19,11 @@ const searchDialog = ref(false)
 const searchCondition = ref(getStoreTest.value)
 watch(getStoreTest, val => {
 	searchCondition.value = val
+})
+// 테마 스위치(light/dark)
+watchEffect(() => {
+	theme.global.name.value = isDarkMode.value ? 'dark' : 'light'
+	store.setDarkMode(isDarkMode.value)
 })
 const onSearch = debounce(() => {
 	if (isEqual(searchCondition.value, getStoreTest.value)) return
@@ -57,6 +65,8 @@ const onSearch = debounce(() => {
 					<v-icon size="small" icon="$vuetify" color="#fde0e0"></v-icon>
 				</template>
 			</v-breadcrumbs>
+			<!-- 테마 모드변경 light or dark -->
+			<v-switch class="d-flex align-center" v-model="isDarkMode"></v-switch>
 		</template>
 	</v-app-bar>
 	<!-- #region overlay loader -->
