@@ -80,15 +80,19 @@ const search = ref('')
 				</v-alert>
 			</template>
 			<template v-slot:text>
-				<v-text-field
-					v-model="search"
-					label="Search"
-					prepend-inner-icon="mdi-magnify"
-					single-line
-					variant="outlined"
-					hide-details
-					width="20"
-				/>
+				<v-row>
+					<v-col cols="5">
+						<v-text-field
+							v-model="search"
+							label="Search"
+							prepend-inner-icon="mdi-magnify"
+							single-line
+							variant="outlined"
+							hide-details
+							clearable
+						/>
+					</v-col>
+				</v-row>
 			</template>
 			<v-card-item>
 				<v-data-table-virtual
