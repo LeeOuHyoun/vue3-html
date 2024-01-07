@@ -35,7 +35,7 @@ const onSearch = debounce(() => {
 		delay(() => (searchDialog.value = searchLoading.value = false), 2000)
 		store.setStoreTest(trim(searchCondition.value))
 	}
-}, 500)
+}, 200)
 </script>
 <template>
 	<v-app-bar color="primary-gradient" class="sub-s">
@@ -67,8 +67,8 @@ const onSearch = debounce(() => {
 			</v-breadcrumbs>
 			<!-- 테마 모드변경 light or dark -->
 			<v-tooltip location="bottom" activator="#themeSwitch">
-				<template v-slot:activator="{ on, attrs }">
-					<div v-bind="attrs" v-on="on" style="width: min-content">
+				<template v-slot:activator="{ attrs }">
+					<div v-bind="attrs" style="width: min-content">
 						<v-switch id="themeSwitch" class="d-flex align-center" v-model="isDarkMode" />
 					</div>
 				</template>
