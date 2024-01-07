@@ -46,6 +46,7 @@ const headers = ref([
 	{ title: 'Preview', align: 'start', key: 'preview', width: 200 },
 ])
 const virtualBoats = ref(map(vuetifyDefaultIcons, (name, alias) => ({ alias, name })))
+const search = ref('')
 </script>
 
 <template>
@@ -78,11 +79,22 @@ const virtualBoats = ref(map(vuetifyDefaultIcons, (name, alias) => ({ alias, nam
 					</template>
 				</v-alert>
 			</template>
-
+			<template v-slot:text>
+				<v-text-field
+					v-model="search"
+					label="Search"
+					prepend-inner-icon="mdi-magnify"
+					single-line
+					variant="outlined"
+					hide-details
+					width="20"
+				/>
+			</template>
 			<v-card-item>
 				<v-data-table-virtual
 					:headers="headers"
 					:items="virtualBoats"
+					:search="search"
 					fixed-header
 					item-key="alias"
 					height="500"
