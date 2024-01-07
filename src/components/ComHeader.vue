@@ -9,7 +9,7 @@ const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.
 const headerMenus = ref([
 	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
 	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
-	{ title: 'Link 2', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-2' },
+	{ title: 'Icon', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'icon-sample' },
 ])
 const searchLoading = ref(false)
 const searchDialog = ref(false)
