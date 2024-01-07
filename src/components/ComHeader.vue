@@ -66,7 +66,15 @@ const onSearch = debounce(() => {
 				</template>
 			</v-breadcrumbs>
 			<!-- 테마 모드변경 light or dark -->
-			<v-switch class="d-flex align-center" v-model="isDarkMode"></v-switch>
+			<!-- <v-switch class="d-flex align-center" v-model="isDarkMode" /> -->
+			<v-tooltip location="bottom" activator="#themeSwitch">
+				<template v-slot:activator="{ on, attrs }">
+					<div v-bind="attrs" v-on="on" style="width: min-content">
+						<v-switch id="themeSwitch" class="d-flex align-center" v-model="isDarkMode" />
+					</div>
+				</template>
+				<div>{{ `다크모드 ${isDarkMode ? 'OFF' : 'ON'}` }}</div>
+			</v-tooltip>
 		</template>
 	</v-app-bar>
 	<!-- #region overlay loader -->
