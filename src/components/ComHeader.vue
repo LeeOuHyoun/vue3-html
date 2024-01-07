@@ -12,19 +12,19 @@ const headerMenus = ref([
 	{ title: 'Link 2', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'breadcrumbs-link-2' },
 ])
 const searchLoading = ref(false)
+const searchDialog = ref(false)
 const searchCondition = ref(getStoreTest.value)
 watch(getStoreTest, val => {
 	searchCondition.value = val
 })
 const onSearch = debounce(() => {
 	if (isEqual(searchCondition.value, getStoreTest.value)) return
-	searchLoading.value = true
-	delay(() => (searchLoading.value = false), 3000)
-
 	if (isEmpty(trim(searchCondition.value)) || size(trim(searchCondition.value)) > 20) {
 		alert('잘 좀 입력해 주세요!!!')
 		searchCondition.value = getStoreTest.value
 	} else {
+		searchDialog.value = searchLoading.value = true
+		delay(() => (searchDialog.value = searchLoading.value = false), 2000)
 		store.setStoreTest(trim(searchCondition.value))
 	}
 }, 500)
@@ -38,11 +38,11 @@ const onSearch = debounce(() => {
 			<v-text-field
 				v-model="searchCondition"
 				:loading="searchLoading"
-				size="30"
+				size="40"
 				class="mx-2"
 				density="compact"
 				variant="solo"
-				label="검색어를 입력 하세요."
+				label="검색어를 입력 하세요. pinia연계 데이터"
 				append-inner-icon="mdi-magnify"
 				single-line
 				hide-details
@@ -58,5 +58,10 @@ const onSearch = debounce(() => {
 			</v-breadcrumbs>
 		</template>
 	</v-app-bar>
+	<!-- #region overlay loader -->
+	<v-overlay :model-value="searchDialog" class="align-center justify-center" persistent>
+		<v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
+	</v-overlay>
+	<!-- #endregion -->
 </template>
 <style lang="scss" scoped></style>
