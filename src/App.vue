@@ -19,7 +19,7 @@ const currentDate = ref($dayjs().format('YYYY'))
 				<router-view />
 			</v-main>
 
-			<v-footer border app class="sub-s" height="50">
+			<v-footer border app class="sub-s pa-0" height="50">
 				<div class="px-4 py-2 text-center w-100">
 					Copyright © 2022-{{ currentDate }} Constant Company All rights reserved.
 				</div>
