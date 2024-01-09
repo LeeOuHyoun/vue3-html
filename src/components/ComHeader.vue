@@ -25,6 +25,7 @@ watchEffect(() => {
 	theme.global.name.value = isDarkMode.value ? 'dark' : 'light'
 	store.setDarkMode(isDarkMode.value)
 })
+const dialog = ref(false)
 const onSearch = debounce(() => {
 	if (isEqual(searchCondition.value, getStoreTest.value)) return
 	if (isEmpty(trim(searchCondition.value)) || size(trim(searchCondition.value)) > 20) {
@@ -32,7 +33,7 @@ const onSearch = debounce(() => {
 		searchCondition.value = getStoreTest.value
 	} else {
 		searchDialog.value = searchLoading.value = true
-		delay(() => (searchDialog.value = searchLoading.value = false), 2000)
+		delay(() => (dialog.value = searchDialog.value = searchLoading.value = false), 2000)
 		store.setStoreTest(trim(searchCondition.value))
 	}
 }, 200)
@@ -43,11 +44,28 @@ const onSearch = debounce(() => {
 			<router-link to="/">
 				<v-img :src="logoSrc" width="50" height="50" alt="Go to Home" />
 			</router-link>
+			<!-- #region 상단 검색 -->
+			<v-btn icon="mdi-magnify" class="ma-1 d-sm-none" @click="dialog = true" />
+			<v-dialog v-model="dialog">
+				<v-text-field
+					v-model="searchCondition"
+					:loading="searchLoading"
+					density="compact"
+					variant="solo"
+					label="검색어를 입력 하세요. pinia연계 데이터"
+					append-inner-icon="mdi-magnify"
+					single-line
+					hide-details
+					clearable
+					@click:append-inner="onSearch"
+					@keydown.enter="onSearch"
+				/>
+			</v-dialog>
 			<v-text-field
 				v-model="searchCondition"
 				:loading="searchLoading"
 				size="40"
-				class="mx-2"
+				class="mx-2 d-none d-sm-flex"
 				density="compact"
 				variant="solo"
 				label="검색어를 입력 하세요. pinia연계 데이터"
@@ -58,13 +76,28 @@ const onSearch = debounce(() => {
 				@click:append-inner="onSearch"
 				@keydown.enter="onSearch"
 			/>
+			<!-- #endregion -->
 		</template>
 		<template v-slot:append>
-			<v-breadcrumbs :items="headerMenus" divider="|">
+			<!-- #region 상단 메뉴링크 -->
+			<v-breadcrumbs :items="headerMenus" divider="|" class="d-none d-md-flex">
 				<template v-slot:prepend>
-					<v-icon size="small" icon="$vuetify" color="#fde0e0"></v-icon>
+					<v-icon size="small" icon="$vuetify" color="#fde0e0" />
 				</template>
 			</v-breadcrumbs>
+			<div class="d-md-none">
+				<v-menu location="bottom">
+					<template v-slot:activator="{ props }">
+						<v-btn variant="text" icon="mdi-dots-vertical" v-bind="props"></v-btn>
+					</template>
+					<v-list active-class="activeMnu">
+						<v-list-item link title="Button" slim prepend-icon="mdi-alpha-b-box" to="button-sample" />
+						<v-list-item link title="Pinia" slim prepend-icon="mdi-fruit-pineapple" to="pinia-sample" />
+						<v-list-item link title="Icon" slim prepend-icon="mdi-vector-square" to="icon-sample" />
+					</v-list>
+				</v-menu>
+			</div>
+			<!-- #endregion -->
 			<!-- 테마 모드변경 light or dark -->
 			<v-tooltip location="bottom" activator="#themeSwitch">
 				<template v-slot:activator="{ attrs }">
