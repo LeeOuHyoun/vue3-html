@@ -1,19 +1,23 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue'
-import { delay, isEqual, isEmpty, trim, debounce, size } from 'lodash-es'
+import { delay, isEqual, isEmpty, trim, debounce, size, map } from 'lodash-es'
 import { useStore } from '@/stores'
 import { useTheme } from 'vuetify'
 import { storeToRefs } from 'pinia'
 const store = useStore()
 const theme = useTheme()
-const { getStoreTest, wasDarkMode } = storeToRefs(store)
+const { getStoreTest, wasDarkMode, naviMenus } = storeToRefs(store)
 const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
 const isDarkMode = ref(wasDarkMode.value)
-const headerMenus = ref([
-	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
-	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
-	{ title: 'Icon', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'icon-sample' },
-])
+const headerMenus = ref(
+	map(naviMenus.value, ({ title, to }) => ({
+		title,
+		to,
+		color: '#fff',
+		'active-class': 'activeMnu',
+		disabled: false,
+	})),
+)
 const searchLoading = ref(false)
 const searchDialog = ref(false)
 const searchCondition = ref(getStoreTest.value)
@@ -46,7 +50,7 @@ const onSearch = debounce(() => {
 			</router-link>
 			<!-- #region 상단 검색 -->
 			<v-btn icon="mdi-magnify" class="ma-1 d-sm-none" @click="dialog = true" />
-			<v-dialog v-model="dialog">
+			<v-dialog v-model="dialog" class="d-md-none">
 				<v-text-field
 					v-model="searchCondition"
 					:loading="searchLoading"
@@ -85,18 +89,21 @@ const onSearch = debounce(() => {
 					<v-icon size="small" icon="$vuetify" color="#fde0e0" />
 				</template>
 			</v-breadcrumbs>
-			<div class="d-md-none">
-				<v-menu location="bottom">
-					<template v-slot:activator="{ props }">
-						<v-btn variant="text" icon="mdi-dots-vertical" v-bind="props"></v-btn>
-					</template>
-					<v-list active-class="activeMnu">
-						<v-list-item link title="Button" slim prepend-icon="mdi-alpha-b-box" to="button-sample" />
-						<v-list-item link title="Pinia" slim prepend-icon="mdi-fruit-pineapple" to="pinia-sample" />
-						<v-list-item link title="Icon" slim prepend-icon="mdi-vector-square" to="icon-sample" />
-					</v-list>
-				</v-menu>
-			</div>
+			<!-- 모바일사이즈시 메뉴표시 -->
+			<v-menu>
+				<template v-slot:activator="{ props }">
+					<v-btn v-bind="props" variant="text" icon="mdi-dots-vertical" class="d-md-none" />
+				</template>
+				<v-list>
+					<v-list-item
+						v-for="item in naviMenus"
+						:key="item.to"
+						:prepend-icon="item.icon"
+						:to="item.to"
+						:title="item.title"
+					/>
+				</v-list>
+			</v-menu>
 			<!-- #endregion -->
 			<!-- 테마 모드변경 light or dark -->
 			<v-tooltip location="bottom" activator="#themeSwitch">
@@ -111,8 +118,12 @@ const onSearch = debounce(() => {
 	</v-app-bar>
 	<!-- #region overlay loader -->
 	<v-overlay :model-value="searchDialog" class="align-center justify-center" persistent>
-		<v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
+		<v-progress-circular color="primary" indeterminate size="64" />
 	</v-overlay>
 	<!-- #endregion -->
 </template>
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.sub-s:deep(.activeMnu) {
+	font-weight: bold;
+}
+</style>

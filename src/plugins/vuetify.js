@@ -1,6 +1,10 @@
 // Styles
 import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
+import DateFnsAdapter from '@date-io/date-fns'
+import { ko } from 'vuetify/locale'
+import en from 'date-fns/locale/en-US'
+import koKr from 'date-fns/locale/ko'
 
 // Vuetify
 import { createVuetify } from 'vuetify'
@@ -14,7 +18,7 @@ export default createVuetify(
 				light: {
 					colors: {
 						primary: '#f56c6c',
-						warning: '#0a9393',
+						secondary: '#0a9393',
 						info: '#909399',
 					},
 				},
@@ -25,6 +29,15 @@ export default createVuetify(
 					},
 				},
 			},
+		},
+		locale: {
+			locale: 'ko',
+			fallback: 'sv',
+			messages: { ko, sv: koKr },
+		},
+		date: {
+			adapter: DateFnsAdapter,
+			locale: { en, sv: koKr, ko: koKr },
 		},
 	},
 )

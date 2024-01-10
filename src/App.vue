@@ -28,8 +28,4 @@ const currentDate = ref($dayjs().format('YYYY'))
 	</v-app>
 </template>
 
-<style lang="scss" scoped>
-.sub-s ::v-deep .activeMnu {
-	font-weight: bold;
-}
-</style>
+<style lang="scss" scoped></style>
