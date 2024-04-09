@@ -1,23 +1,20 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue'
-import { delay, isEqual, isEmpty, trim, debounce, size, map } from 'lodash-es'
+import { delay, isEqual, isEmpty, trim, debounce, size } from 'lodash-es'
 import { useStore } from '@/stores'
 import { useTheme } from 'vuetify'
 import { storeToRefs } from 'pinia'
 const store = useStore()
 const theme = useTheme()
-const { getStoreTest, wasDarkMode, naviMenus } = storeToRefs(store)
+const { getStoreTest, wasDarkMode } = storeToRefs(store)
 const logoSrc = computed(() => new URL('@/assets/img/constant_logo.svg', import.meta.url).href)
 const isDarkMode = ref(wasDarkMode.value)
-const headerMenus = ref(
-	map(naviMenus.value, ({ title, to }) => ({
-		title,
-		to,
-		color: '#fff',
-		'active-class': 'activeMnu',
-		disabled: false,
-	})),
-)
+const headerMenus = ref([
+	{ title: 'Button', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'button-sample' },
+	{ title: 'Pinia', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'pinia-sample' },
+	{ title: 'Icon', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'icon-sample' },
+	{ title: 'Animejs', color: '#fff', 'active-class': 'activeMnu', disabled: false, to: 'animejs-sample' },
+])
 const searchLoading = ref(false)
 const searchDialog = ref(false)
 const searchCondition = ref(getStoreTest.value)
@@ -29,7 +26,6 @@ watchEffect(() => {
 	theme.global.name.value = isDarkMode.value ? 'dark' : 'light'
 	store.setDarkMode(isDarkMode.value)
 })
-const dialog = ref(false)
 const onSearch = debounce(() => {
 	if (isEqual(searchCondition.value, getStoreTest.value)) return
 	if (isEmpty(trim(searchCondition.value)) || size(trim(searchCondition.value)) > 20) {
@@ -37,7 +33,7 @@ const onSearch = debounce(() => {
 		searchCondition.value = getStoreTest.value
 	} else {
 		searchDialog.value = searchLoading.value = true
-		delay(() => (dialog.value = searchDialog.value = searchLoading.value = false), 2000)
+		delay(() => (searchDialog.value = searchLoading.value = false), 2000)
 		store.setStoreTest(trim(searchCondition.value))
 	}
 }, 200)
@@ -48,28 +44,11 @@ const onSearch = debounce(() => {
 			<router-link to="/">
 				<v-img :src="logoSrc" width="50" height="50" alt="Go to Home" />
 			</router-link>
-			<!-- #region 상단 검색 -->
-			<v-btn icon="mdi-magnify" class="ma-1 d-sm-none" @click="dialog = true" />
-			<v-dialog v-model="dialog" class="d-md-none">
-				<v-text-field
-					v-model="searchCondition"
-					:loading="searchLoading"
-					density="compact"
-					variant="solo"
-					label="검색어를 입력 하세요. pinia연계 데이터"
-					append-inner-icon="mdi-magnify"
-					single-line
-					hide-details
-					clearable
-					@click:append-inner="onSearch"
-					@keydown.enter="onSearch"
-				/>
-			</v-dialog>
 			<v-text-field
 				v-model="searchCondition"
 				:loading="searchLoading"
 				size="40"
-				class="mx-2 d-none d-sm-flex"
+				class="mx-2"
 				density="compact"
 				variant="solo"
 				label="검색어를 입력 하세요. pinia연계 데이터"
@@ -80,31 +59,13 @@ const onSearch = debounce(() => {
 				@click:append-inner="onSearch"
 				@keydown.enter="onSearch"
 			/>
-			<!-- #endregion -->
 		</template>
 		<template v-slot:append>
-			<!-- #region 상단 메뉴링크 -->
-			<v-breadcrumbs :items="headerMenus" divider="|" class="d-none d-md-flex">
+			<v-breadcrumbs :items="headerMenus" divider="|">
 				<template v-slot:prepend>
-					<v-icon size="small" icon="$vuetify" color="#fde0e0" />
+					<v-icon size="small" icon="$vuetify" color="#fde0e0"></v-icon>
 				</template>
 			</v-breadcrumbs>
-			<!-- 모바일사이즈시 메뉴표시 -->
-			<v-menu>
-				<template v-slot:activator="{ props }">
-					<v-btn v-bind="props" variant="text" icon="mdi-dots-vertical" class="d-md-none" />
-				</template>
-				<v-list>
-					<v-list-item
-						v-for="item in naviMenus"
-						:key="item.to"
-						:prepend-icon="item.icon"
-						:to="item.to"
-						:title="item.title"
-					/>
-				</v-list>
-			</v-menu>
-			<!-- #endregion -->
 			<!-- 테마 모드변경 light or dark -->
 			<v-tooltip location="bottom" activator="#themeSwitch">
 				<template v-slot:activator="{ attrs }">
@@ -118,12 +79,8 @@ const onSearch = debounce(() => {
 	</v-app-bar>
 	<!-- #region overlay loader -->
 	<v-overlay :model-value="searchDialog" class="align-center justify-center" persistent>
-		<v-progress-circular color="primary" indeterminate size="64" />
+		<v-progress-circular color="primary" indeterminate size="64"></v-progress-circular>
 	</v-overlay>
 	<!-- #endregion -->
 </template>
-<style lang="scss" scoped>
-.sub-s:deep(.activeMnu) {
-	font-weight: bold;
-}
-</style>
+<style lang="scss" scoped></style>

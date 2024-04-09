@@ -8,6 +8,7 @@ import '@/styles/style.scss'
 import dayjs from 'dayjs'
 import { createPinia } from 'pinia'
 import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
+import { MotionPlugin } from '@vueuse/motion'
 
 loadFonts()
 
@@ -50,4 +51,4 @@ http.interceptors.response.use(
 app.provide('$http', http)
 app.provide('$dayjs', dayjs)
 
-app.use(vuetify).use(router).use(pinia).mount('#app')
+app.use(vuetify).use(router).use(pinia).use(MotionPlugin).mount('#app')

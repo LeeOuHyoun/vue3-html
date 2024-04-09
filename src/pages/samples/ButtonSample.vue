@@ -41,12 +41,6 @@ const helloWorld = () => {
 						<v-btn color="primary" class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
 					</v-col>
 					<v-col cols="12">
-						<v-btn color="secondary" class="ma-1"> secondary </v-btn>
-						<v-btn color="secondary" class="ma-1" variant="outlined"> secondary outlined </v-btn>
-						<v-btn color="secondary" class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
-						<v-btn color="secondary" class="ma-1" append-icon="mdi-exit-run"> append-icon </v-btn>
-					</v-col>
-					<v-col cols="12">
 						<v-btn color="warning" class="ma-1"> warning </v-btn>
 						<v-btn color="warning" class="ma-1" variant="outlined"> warning outlined </v-btn>
 						<v-btn color="warning" class="ma-1" prepend-icon="mdi-check-circle"> prepend-icon </v-btn>
@@ -75,7 +69,6 @@ const helloWorld = () => {
 					</v-col>
 					<v-col cols="12">
 						<v-btn icon="mdi-open-in-new" class="ma-1" size="large" @click="onClickBtn" />
-						<v-btn icon="mdi-open-in-new" color="secondary" class="ma-1" size="large" @click="onClickBtn" />
 						<v-btn icon="mdi-open-in-new" color="primary" class="ma-1" size="large" @click="onClickBtn" />
 						<v-btn icon="mdi-open-in-new" color="warning" class="ma-1" size="large" @click="onClickBtn" />
 						<v-btn icon="mdi-open-in-new" color="info" class="ma-1" size="large" @click="onClickBtn" />
